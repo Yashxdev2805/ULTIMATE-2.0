@@ -1,70 +1,94 @@
 'use client';
 
-import React from 'react';
-import { GlassCard } from '@/components/ui/GlassCard';
-import { Button } from '@/components/ui/Button';
+import React, { useState } from 'react';
+import { AdminAnalytics } from '@/components/features/admin/AdminAnalytics';
+import { DispatchKanban } from '@/components/features/admin/DispatchKanban';
+import { InventoryManager } from '@/components/features/admin/InventoryManager';
+import { TechnicianRoster } from '@/components/features/admin/TechnicianRoster';
 import { Badge } from '@/components/ui/Badge';
-import { ShieldCheck, BarChart3, Layers, QrCode, Users, Lock } from 'lucide-react';
+import { Button } from '@/components/ui/Button';
+import {
+  ShieldCheck,
+  BarChart3,
+  Wrench,
+  Package,
+  Users,
+} from 'lucide-react';
 
 export default function AdminPage() {
+  const [activeTab, setActiveTab] = useState<'kanban' | 'inventory' | 'techs' | 'analytics'>('kanban');
+
   return (
     <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div className="space-y-6 mb-12">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-violet/10 border border-brand-violet/30 text-purple-500 dark:text-purple-400 text-xs font-semibold uppercase tracking-wider">
-          <ShieldCheck className="w-3.5 h-3.5" /> Enterprise Operations
+      {/* Header Banner */}
+      <div className="space-y-4 mb-8">
+        <div className="flex items-center justify-between flex-wrap gap-4">
+          <div>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-violet/10 border border-brand-violet/30 text-brand-violet text-xs font-semibold uppercase tracking-wider mb-2">
+              <ShieldCheck className="w-3.5 h-3.5" /> Dispatch & Inventory Operations Control
+            </div>
+            <h1 className="text-3xl sm:text-5xl font-display font-extrabold dark:text-white text-slate-900 tracking-tight">
+              Admin & Dispatch <span className="text-gradient-violet">Portal</span>
+            </h1>
+          </div>
+          <Badge variant="oem">Role: Master Dispatcher</Badge>
         </div>
-        <h1 className="text-3xl sm:text-5xl font-display font-extrabold dark:text-white text-slate-900 tracking-tight">
-          Admin Control Center & <span className="text-gradient-violet">Dispatch Hub</span>
-        </h1>
-        <p className="dark:text-slate-300 text-slate-700 text-base max-w-2xl leading-relaxed font-medium">
-          Business intelligence dashboards, drag-and-drop repair dispatch Kanban, barcode inventory scanning, and 4-tier Role-Based Access Control (RBAC).
-        </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-        <GlassCard variant="interactive" glowColor="violet" className="p-6 space-y-2">
-          <div className="flex justify-between items-center text-xs dark:text-slate-400 text-slate-600 font-medium">
-            <span>Gross Revenue (GMV)</span>
-            <BarChart3 className="w-4 h-4 text-purple-500 dark:text-purple-400" />
-          </div>
-          <div className="text-2xl font-bold dark:text-white text-slate-900 font-mono">$48,290.00</div>
-          <div className="text-[11px] text-emerald-600 dark:text-emerald-400 font-mono font-bold">↑ 18.4% vs last month</div>
-        </GlassCard>
+      {/* Navigation Tabs */}
+      <div className="flex items-center gap-2 border-b dark:border-white/10 border-slate-200 pb-3 mb-8 overflow-x-auto">
+        <button
+          onClick={() => setActiveTab('kanban')}
+          className={`px-4 py-2 rounded-xl text-xs font-mono font-bold flex items-center gap-2 transition-all ${
+            activeTab === 'kanban'
+              ? 'bg-brand-orange text-white shadow-md'
+              : 'dark:text-slate-400 text-slate-600 dark:hover:text-white hover:text-slate-900'
+          }`}
+        >
+          <Wrench className="w-4 h-4" /> Dispatch Kanban Board
+        </button>
 
-        <GlassCard variant="interactive" glowColor="orange" className="p-6 space-y-2">
-          <div className="flex justify-between items-center text-xs dark:text-slate-400 text-slate-600 font-medium">
-            <span>Active Kanban Tickets</span>
-            <Layers className="w-4 h-4 text-brand-orange" />
-          </div>
-          <div className="text-2xl font-bold dark:text-white text-slate-900 font-mono">24 Tickets</div>
-          <div className="text-[11px] text-orange-600 dark:text-orange-400 font-mono font-bold">6 Dispatch Ready</div>
-        </GlassCard>
+        <button
+          onClick={() => setActiveTab('inventory')}
+          className={`px-4 py-2 rounded-xl text-xs font-mono font-bold flex items-center gap-2 transition-all ${
+            activeTab === 'inventory'
+              ? 'bg-brand-cyan text-slate-950 shadow-md'
+              : 'dark:text-slate-400 text-slate-600 dark:hover:text-white hover:text-slate-900'
+          }`}
+        >
+          <Package className="w-4 h-4" /> Inventory & Stock
+        </button>
 
-        <GlassCard variant="interactive" glowColor="cyan" className="p-6 space-y-2">
-          <div className="flex justify-between items-center text-xs dark:text-slate-400 text-slate-600 font-medium">
-            <span>Low Stock Alerts</span>
-            <QrCode className="w-4 h-4 text-brand-cyan" />
-          </div>
-          <div className="text-2xl font-bold dark:text-white text-slate-900 font-mono">3 SKUs</div>
-          <div className="text-[11px] text-brand-cyan font-mono font-bold">Auto-PO Drafted</div>
-        </GlassCard>
+        <button
+          onClick={() => setActiveTab('techs')}
+          className={`px-4 py-2 rounded-xl text-xs font-mono font-bold flex items-center gap-2 transition-all ${
+            activeTab === 'techs'
+              ? 'bg-purple-600 text-white shadow-md'
+              : 'dark:text-slate-400 text-slate-600 dark:hover:text-white hover:text-slate-900'
+          }`}
+        >
+          <Users className="w-4 h-4" /> Field Technicians
+        </button>
 
-        <GlassCard variant="interactive" glowColor="violet" className="p-6 space-y-2">
-          <div className="flex justify-between items-center text-xs dark:text-slate-400 text-slate-600 font-medium">
-            <span>Active Admin Role</span>
-            <Lock className="w-4 h-4 text-purple-500 dark:text-purple-400" />
-          </div>
-          <div className="text-xl font-bold dark:text-white text-slate-900 font-mono">Super Admin</div>
-          <div className="text-[11px] dark:text-slate-400 text-slate-600 font-mono">Audit Trail Active</div>
-        </GlassCard>
+        <button
+          onClick={() => setActiveTab('analytics')}
+          className={`px-4 py-2 rounded-xl text-xs font-mono font-bold flex items-center gap-2 transition-all ${
+            activeTab === 'analytics'
+              ? 'bg-emerald-500 text-slate-950 shadow-md'
+              : 'dark:text-slate-400 text-slate-600 dark:hover:text-white hover:text-slate-900'
+          }`}
+        >
+          <BarChart3 className="w-4 h-4" /> Analytics & Revenue
+        </button>
       </div>
 
-      <GlassCard variant="default" className="p-8 text-center space-y-4">
-        <h3 className="text-lg font-display font-bold dark:text-white text-slate-900">Phase 7 Enterprise Modular Rebuild Preview</h3>
-        <p className="text-xs dark:text-slate-400 text-slate-600 max-w-lg mx-auto font-medium">
-          Phase 7 will replace the old monolithic admin panel with Recharts analytics widgets, Trello-style Kanban dispatch board, and role-based route permissions.
-        </p>
-      </GlassCard>
+      {/* Tab Panels */}
+      <div className="space-y-8">
+        {activeTab === 'kanban' && <DispatchKanban />}
+        {activeTab === 'inventory' && <InventoryManager />}
+        {activeTab === 'techs' && <TechnicianRoster />}
+        {activeTab === 'analytics' && <AdminAnalytics />}
+      </div>
     </main>
   );
 }
