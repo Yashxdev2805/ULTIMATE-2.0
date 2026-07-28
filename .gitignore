@@ -1,5 +1,5 @@
 # ==========================================
-# Thinkkaro (RepairHub) - Workspace .gitignore
+# Thinkkaro (RepairHub) - Master Workspace .gitignore
 # ==========================================
 
 # ------------------------------------------
@@ -42,9 +42,11 @@ __pycache__/
 # ------------------------------------------
 node_modules/
 frontend/node_modules/
+backend/node_modules/
 .next/
 frontend/.next/
 out/
+frontend/out/
 build/
 dist/
 /.pnp
@@ -76,9 +78,11 @@ Thumbs.db
 .gemini/
 
 # ------------------------------------------
-# Next.js & Turbopack
+# Next.js, Turbopack & Cache
 # ------------------------------------------
 .vercel
+.turbo/
+.swc/
 *.tsbuildinfo
 next-env.d.ts
 frontend/next-env.d.ts

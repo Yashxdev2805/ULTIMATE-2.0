@@ -53,43 +53,43 @@ export function CartDrawer() {
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', stiffness: 350, damping: 30 }}
-            className="fixed top-0 right-0 bottom-0 w-full sm:w-[440px] bg-[#0B0F17] border-l border-white/10 z-50 p-6 flex flex-col justify-between overflow-y-auto"
+            className="fixed top-0 right-0 bottom-0 w-full sm:w-[440px] dark:bg-[#0B0F17] bg-white border-l dark:border-white/10 border-slate-300 z-50 p-6 flex flex-col justify-between overflow-y-auto shadow-2xl"
           >
             {/* Header */}
             <div>
-              <div className="flex items-center justify-between pb-5 border-b border-white/10 mb-5">
+              <div className="flex items-center justify-between pb-5 border-b dark:border-white/10 border-slate-200 mb-5">
                 <div className="flex items-center gap-2.5">
                   <div className="p-2 rounded-xl bg-brand-orange/20 text-brand-orange">
                     <ShoppingCart className="w-5 h-5" />
                   </div>
                   <div>
-                    <h2 className="font-display font-bold text-white text-base flex items-center gap-2">
+                    <h2 className="font-display font-bold dark:text-white text-slate-900 text-base flex items-center gap-2">
                       Express Cart <Badge variant="pulse">{totalItems} Items</Badge>
                     </h2>
-                    <p className="text-[11px] text-slate-400 font-mono">100% Fitment Guaranteed Checkout</p>
+                    <p className="text-[11px] dark:text-slate-400 text-slate-600 font-mono">100% Fitment Guaranteed Checkout</p>
                   </div>
                 </div>
 
-                <Button variant="glass" size="sm" onClick={() => setCartDrawerOpen(false)} className="p-2 min-h-[44px] min-w-[44px]">
-                  <X className="w-5 h-5 text-slate-300" />
+                <Button variant="glass" size="sm" onClick={() => setCartDrawerOpen(false)} className="p-2 min-h-[44px] min-w-[44px] dark:text-slate-300 text-slate-800 border dark:border-white/15 border-slate-300">
+                  <X className="w-5 h-5" />
                 </Button>
               </div>
 
               {/* Free Shipping Progress Indicator */}
-              <div className="p-3 mb-5 rounded-xl bg-white/5 border border-white/10 space-y-2">
+              <div className="p-3 mb-5 rounded-xl dark:bg-white/5 bg-slate-100 border dark:border-white/10 border-slate-200 space-y-2">
                 <div className="flex justify-between items-center text-xs">
-                  <span className="text-slate-300 flex items-center gap-1.5 font-medium">
+                  <span className="dark:text-slate-300 text-slate-700 flex items-center gap-1.5 font-medium">
                     <Truck className="w-4 h-4 text-brand-cyan" />
                     {totalPrice >= freeShippingThreshold ? (
-                      <span className="text-emerald-400 font-semibold">✓ Free Express Shipping Unlocked!</span>
+                      <span className="text-emerald-500 font-semibold">✓ Free Express Shipping Unlocked!</span>
                     ) : (
                       <span>
-                        Add <strong className="text-white">${(freeShippingThreshold - totalPrice).toFixed(2)}</strong> for Free Express Shipping
+                        Add <strong className="dark:text-white text-slate-900">${(freeShippingThreshold - totalPrice).toFixed(2)}</strong> for Free Express Shipping
                       </span>
                     )}
                   </span>
                 </div>
-                <div className="w-full bg-white/10 h-1.5 rounded-full overflow-hidden">
+                <div className="w-full dark:bg-white/10 bg-slate-300 h-1.5 rounded-full overflow-hidden">
                   <div
                     className="bg-gradient-to-r from-brand-orange to-brand-cyan h-full transition-all duration-300"
                     style={{ width: `${shippingProgress}%` }}
@@ -99,10 +99,10 @@ export function CartDrawer() {
 
               {/* Selected Device Fitment Indicator */}
               {selectedDevice?.model && (
-                <div className="p-3 mb-5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center gap-2 text-xs text-emerald-300">
-                  <Smartphone className="w-4 h-4 text-emerald-400 shrink-0" />
+                <div className="p-3 mb-5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center gap-2 text-xs text-emerald-600 dark:text-emerald-300 font-medium">
+                  <Smartphone className="w-4 h-4 text-emerald-500 shrink-0" />
                   <span>
-                    Fitment Verified for <strong className="text-white">{selectedDevice.model}</strong>
+                    Fitment Verified for <strong className="dark:text-white text-slate-900">{selectedDevice.model}</strong>
                   </span>
                 </div>
               )}
@@ -110,11 +110,11 @@ export function CartDrawer() {
               {/* Cart Items List */}
               {items.length === 0 ? (
                 <div className="text-center py-12 space-y-4">
-                  <div className="w-16 h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mx-auto text-slate-500">
+                  <div className="w-16 h-16 rounded-full dark:bg-white/5 bg-slate-100 border dark:border-white/10 border-slate-300 flex items-center justify-center mx-auto text-slate-400">
                     <ShoppingCart className="w-8 h-8" />
                   </div>
-                  <h3 className="text-base font-semibold text-white">Your cart is empty</h3>
-                  <p className="text-xs text-slate-400 max-w-xs mx-auto">
+                  <h3 className="text-base font-semibold dark:text-white text-slate-900">Your cart is empty</h3>
+                  <p className="text-xs dark:text-slate-400 text-slate-600 max-w-xs mx-auto">
                     Browse OEM spare parts, precision tools, or diagnostic repair bundles to get started.
                   </p>
                   <Button variant="flame" size="sm" onClick={() => setCartDrawerOpen(false)}>
@@ -126,34 +126,34 @@ export function CartDrawer() {
                   {items.map((item) => (
                     <div
                       key={item.id}
-                      className="p-3.5 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-between gap-3 group hover:border-white/20 transition-all"
+                      className="p-3.5 rounded-2xl dark:bg-white/5 bg-slate-50 border dark:border-white/10 border-slate-200 flex items-center justify-between gap-3 group hover:border-slate-300 transition-all"
                     >
                       <div className="flex-1 space-y-1">
                         <div className="flex items-center gap-2">
-                          <h4 className="text-xs font-semibold text-white line-clamp-1">{item.name}</h4>
-                          <span className="text-[10px] uppercase font-mono px-1.5 py-0.2 rounded bg-white/10 text-slate-300">
+                          <h4 className="text-xs font-semibold dark:text-white text-slate-900 line-clamp-1">{item.name}</h4>
+                          <span className="text-[10px] uppercase font-mono px-1.5 py-0.2 rounded dark:bg-white/10 bg-slate-200 dark:text-slate-300 text-slate-700">
                             {item.type}
                           </span>
                         </div>
                         {item.compatibility && (
-                          <p className="text-[10px] text-emerald-400 font-mono">✓ {item.compatibility}</p>
+                          <p className="text-[10px] text-emerald-600 dark:text-emerald-400 font-mono font-medium">✓ {item.compatibility}</p>
                         )}
                         <div className="text-xs font-bold text-brand-orange">${item.price.toFixed(2)}</div>
                       </div>
 
                       {/* Quantity Controls */}
-                      <div className="flex items-center gap-1.5 bg-white/5 border border-white/10 p-1 rounded-xl">
+                      <div className="flex items-center gap-1.5 dark:bg-white/5 bg-white border dark:border-white/10 border-slate-300 p-1 rounded-xl">
                         <button
                           onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                          className="p-1 text-slate-400 hover:text-white transition-colors"
+                          className="p-1 dark:text-slate-400 text-slate-600 hover:text-slate-950 dark:hover:text-white transition-colors"
                           title="Decrease quantity"
                         >
                           <Minus className="w-3.5 h-3.5" />
                         </button>
-                        <span className="text-xs font-mono font-bold text-white px-2">{item.quantity}</span>
+                        <span className="text-xs font-mono font-bold dark:text-white text-slate-900 px-2">{item.quantity}</span>
                         <button
                           onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                          className="p-1 text-slate-400 hover:text-white transition-colors"
+                          className="p-1 dark:text-slate-400 text-slate-600 hover:text-slate-950 dark:hover:text-white transition-colors"
                           title="Increase quantity"
                         >
                           <Plus className="w-3.5 h-3.5" />
@@ -163,7 +163,7 @@ export function CartDrawer() {
                       {/* Remove Item */}
                       <button
                         onClick={() => removeItem(item.id)}
-                        className="p-1.5 text-slate-500 hover:text-rose-400 transition-colors"
+                        className="p-1.5 text-slate-400 hover:text-rose-500 transition-colors"
                         title="Remove item"
                       >
                         <Trash2 className="w-4 h-4" />
@@ -176,19 +176,19 @@ export function CartDrawer() {
 
             {/* Footer Summary & Checkout */}
             {items.length > 0 && (
-              <div className="pt-5 border-t border-white/10 space-y-4">
+              <div className="pt-5 border-t dark:border-white/10 border-slate-200 space-y-4">
                 <div className="space-y-1.5 text-xs font-mono">
-                  <div className="flex justify-between text-slate-400">
+                  <div className="flex justify-between dark:text-slate-400 text-slate-600">
                     <span>Subtotal</span>
-                    <span className="text-white">${totalPrice.toFixed(2)}</span>
+                    <span className="dark:text-white text-slate-900 font-bold">${totalPrice.toFixed(2)}</span>
                   </div>
-                  <div className="flex justify-between text-slate-400">
+                  <div className="flex justify-between dark:text-slate-400 text-slate-600">
                     <span>Estimated Express Shipping</span>
-                    <span className="text-emerald-400">
+                    <span className="text-emerald-500 font-bold">
                       {totalPrice >= freeShippingThreshold ? 'FREE' : '$9.99'}
                     </span>
                   </div>
-                  <div className="flex justify-between text-sm font-bold text-white pt-2 border-t border-white/10">
+                  <div className="flex justify-between text-sm font-bold dark:text-white text-slate-900 pt-2 border-t dark:border-white/10 border-slate-200">
                     <span>Total Amount</span>
                     <span className="text-brand-orange">
                       ${(totalPrice + (totalPrice >= freeShippingThreshold ? 0 : 9.99)).toFixed(2)}
@@ -200,8 +200,8 @@ export function CartDrawer() {
                   Proceed to Express Checkout
                 </Button>
 
-                <p className="text-[10px] text-center text-slate-500 flex items-center justify-center gap-1 font-mono">
-                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                <p className="text-[10px] text-center dark:text-slate-500 text-slate-600 flex items-center justify-center gap-1 font-mono font-medium">
+                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
                   Encrypted Razorpay / Stripe Payment Processing
                 </p>
               </div>

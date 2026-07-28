@@ -4,9 +4,9 @@
 
 @layer base {
   :root {
-    /* Color Tokens - Light Theme Default Fallback */
-    --background: 210 40% 98%;
-    --foreground: 222.2 84% 4.9%;
+    /* Color Tokens - Clean Slate Light Mode */
+    --background: 210 40% 98%;   /* #F8FAFC Clean Light */
+    --foreground: 222.2 84% 4.9%; /* Deep Slate Dark Text */
     --surface: 0 0% 100%;
     --surface-elevated: 210 40% 96%;
     --surface-border: 214.3 31.8% 91.4%;
@@ -16,8 +16,8 @@
     --brand-cyan: 184 100% 50%;   /* #00F2FE */
     --brand-violet: 271 76% 53%;  /* #7928CA */
 
-    /* Card & Glassmorphism */
-    --glass-bg: rgba(255, 255, 255, 0.7);
+    /* Card & Glassmorphism Light */
+    --glass-bg: rgba(255, 255, 255, 0.85);
     --glass-border: rgba(0, 0, 0, 0.08);
     --glass-blur: 16px;
 
@@ -25,9 +25,9 @@
   }
 
   .dark {
-    /* Color Tokens - Midnight Obsidian (Default Dark Mode) */
+    /* Color Tokens - Midnight Obsidian Dark Mode (Default) */
     --background: 220 35% 6.7%; /* #0B0F17 Deep Obsidian */
-    --foreground: 210 40% 98%;
+    --foreground: 210 40% 98%;   /* Slate 100 Light Text */
     --surface: 220 30% 10%;    /* #121826 */
     --surface-elevated: 220 28% 14%;
     --surface-border: 220 20% 20%;
@@ -37,7 +37,7 @@
     --brand-cyan: 184 100% 50%;
     --brand-violet: 271 76% 53%;
 
-    /* Card & Glassmorphism */
+    /* Card & Glassmorphism Dark */
     --glass-bg: rgba(18, 24, 38, 0.7);
     --glass-border: rgba(255, 255, 255, 0.08);
     --glass-blur: 20px;
@@ -53,6 +53,7 @@
     color: hsl(var(--foreground));
     font-feature-settings: "rlig" 1, "calt" 1;
     overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 }
 
@@ -103,6 +104,18 @@
   -webkit-text-fill-color: transparent;
 }
 
+.dark .text-gradient-hero {
+  background: linear-gradient(135deg, #FFFFFF 0%, #94A3B8 50%, #FF6A00 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+:root:not(.dark) .text-gradient-hero {
+  background: linear-gradient(135deg, #0F172A 0%, #334155 50%, #FF6A00 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 .glow-orange {
   box-shadow: 0 0 20px rgba(255, 106, 0, 0.35);
 }
@@ -121,15 +134,19 @@
   height: 8px;
 }
 
-::-webkit-scrollbar-track {
+.dark ::-webkit-scrollbar-track {
   background: #0B0F17;
 }
 
+::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(148, 163, 184, 0.3);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 106, 0, 0.4);
+  background: rgba(255, 106, 0, 0.5);
 }

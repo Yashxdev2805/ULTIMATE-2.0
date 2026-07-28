@@ -55,27 +55,27 @@ export function Navbar() {
   const totalItems = getTotalItems();
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-white/[0.08] bg-[#0B0F17]/80 backdrop-blur-xl transition-all">
+    <header className="sticky top-0 z-40 w-full border-b dark:border-white/[0.08] border-slate-200 dark:bg-[#0B0F17]/80 bg-white/80 backdrop-blur-xl transition-all">
       {/* Top Device Compatibility Header Bar */}
-      <div className="bg-[#121826]/90 border-b border-white/[0.05] py-1.5 px-4 text-xs font-mono">
+      <div className="dark:bg-[#121826]/90 bg-slate-100/90 border-b dark:border-white/[0.05] border-slate-200 py-1.5 px-4 text-xs font-mono">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Smartphone className="w-3.5 h-3.5 text-brand-orange" />
-            <span className="text-slate-400 hidden sm:inline">Guaranteed Fitment Selector:</span>
+            <span className="dark:text-slate-400 text-slate-600 hidden sm:inline">Guaranteed Fitment Selector:</span>
             
             {/* Device Dropdown Selector */}
             <div className="relative">
               <button
                 onClick={() => setIsDeviceMenuOpen(!isDeviceMenuOpen)}
-                className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-lg bg-white/5 border border-white/10 hover:border-brand-orange/40 text-slate-200 hover:text-white transition-all"
+                className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-lg dark:bg-white/5 bg-slate-200/70 border dark:border-white/10 border-slate-300 hover:border-brand-orange/40 dark:text-slate-200 text-slate-800 transition-all"
               >
                 {selectedDevice?.model ? (
                   <>
-                    <span className="text-emerald-400 font-semibold">✓ {selectedDevice.model}</span>
-                    <span className="text-slate-400 font-normal">({selectedDevice.variant})</span>
+                    <span className="text-emerald-500 dark:text-emerald-400 font-semibold">✓ {selectedDevice.model}</span>
+                    <span className="dark:text-slate-400 text-slate-500 font-normal">({selectedDevice.variant})</span>
                   </>
                 ) : (
-                  <span className="text-slate-300">Select Your Device Model...</span>
+                  <span className="dark:text-slate-300 text-slate-700">Select Your Device Model...</span>
                 )}
                 <ChevronDown className="w-3 h-3 text-slate-400" />
               </button>
@@ -87,9 +87,9 @@ export function Navbar() {
                     initial={{ opacity: 0, y: 5 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 5 }}
-                    className="absolute top-full left-0 mt-1.5 w-64 p-2 rounded-xl bg-[#121826] border border-white/15 shadow-2xl z-50 backdrop-blur-2xl"
+                    className="absolute top-full left-0 mt-1.5 w-64 p-2 rounded-xl dark:bg-[#121826] bg-white border dark:border-white/15 border-slate-200 shadow-2xl z-50 backdrop-blur-2xl"
                   >
-                    <div className="text-[11px] font-semibold text-slate-400 px-2 py-1 uppercase tracking-wider">
+                    <div className="text-[11px] font-semibold dark:text-slate-400 text-slate-500 px-2 py-1 uppercase tracking-wider">
                       Popular Models
                     </div>
                     {sampleDevices.map((device) => (
@@ -99,10 +99,10 @@ export function Navbar() {
                           setSelectedDevice(device);
                           setIsDeviceMenuOpen(false);
                         }}
-                        className="w-full text-left px-2.5 py-1.5 rounded-lg hover:bg-brand-orange/10 hover:text-brand-orange text-slate-300 flex items-center justify-between text-xs transition-colors"
+                        className="w-full text-left px-2.5 py-1.5 rounded-lg hover:bg-brand-orange/10 hover:text-brand-orange dark:text-slate-300 text-slate-700 flex items-center justify-between text-xs transition-colors"
                       >
                         <span>{device.model}</span>
-                        <span className="text-[10px] font-mono text-slate-500">{device.brand}</span>
+                        <span className="text-[10px] font-mono text-slate-400">{device.brand}</span>
                       </button>
                     ))}
                     {selectedDevice && (
@@ -111,7 +111,7 @@ export function Navbar() {
                           setSelectedDevice(null);
                           setIsDeviceMenuOpen(false);
                         }}
-                        className="w-full text-center mt-1 pt-1.5 border-t border-white/10 text-[11px] text-rose-400 hover:text-rose-300"
+                        className="w-full text-center mt-1 pt-1.5 border-t dark:border-white/10 border-slate-200 text-[11px] text-rose-500 hover:text-rose-600 font-semibold"
                       >
                         Clear Fitment Filter
                       </button>
@@ -122,8 +122,8 @@ export function Navbar() {
             </div>
           </div>
 
-          <div className="flex items-center gap-4 text-slate-400 text-[11px]">
-            <span className="hidden md:flex items-center gap-1 text-emerald-400">
+          <div className="flex items-center gap-4 dark:text-slate-400 text-slate-600 text-[11px]">
+            <span className="hidden md:flex items-center gap-1 text-emerald-500 dark:text-emerald-400">
               <CheckCircle2 className="w-3 h-3" /> 100% OEM Compatibility Guarantee
             </span>
             <span className="hidden sm:inline">24/7 AI Diagnostic Support</span>
@@ -139,10 +139,10 @@ export function Navbar() {
             <Cpu className="w-5 h-5" />
           </div>
           <div className="flex flex-col">
-            <span className="font-display font-bold text-lg text-white tracking-tight leading-none group-hover:text-brand-orange transition-colors">
+            <span className="font-display font-bold text-lg dark:text-white text-slate-900 tracking-tight leading-none group-hover:text-brand-orange transition-colors">
               Thinkkaro <span className="text-brand-orange">RepairHub</span>
             </span>
-            <span className="text-[10px] font-mono text-slate-400 tracking-wider">ECOSYSTEM</span>
+            <span className="text-[10px] font-mono dark:text-slate-400 text-slate-500 tracking-wider">ECOSYSTEM</span>
           </div>
         </Link>
 
@@ -157,11 +157,11 @@ export function Navbar() {
                 href={link.href}
                 className={`relative px-3.5 py-2 rounded-xl text-xs font-medium transition-all flex items-center gap-1.5 ${
                   isActive
-                    ? 'text-white font-semibold bg-white/10 shadow-sm border border-white/15'
-                    : 'text-slate-300 hover:text-white hover:bg-white/5'
+                    ? 'dark:text-white text-slate-950 font-semibold dark:bg-white/10 bg-slate-200/80 shadow-sm dark:border-white/15 border-slate-300'
+                    : 'dark:text-slate-300 text-slate-600 hover:text-slate-950 dark:hover:text-white dark:hover:bg-white/5 hover:bg-slate-100'
                 }`}
               >
-                <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-brand-orange' : 'text-slate-400'}`} />
+                <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-brand-orange' : 'dark:text-slate-400 text-slate-500'}`} />
                 <span>{link.label}</span>
                 {link.badge && (
                   <span className="px-1.5 py-0.2 rounded-full bg-brand-violet text-white text-[9px] font-bold">
@@ -180,13 +180,13 @@ export function Navbar() {
             variant="glass"
             size="sm"
             onClick={toggleTheme}
-            className="p-2 rounded-xl"
+            className="p-2 rounded-xl border dark:border-white/15 border-slate-300 dark:bg-white/10 bg-slate-100 text-slate-800 dark:text-white"
             title="Toggle Dark/Light Mode"
           >
             {theme === 'dark' ? (
               <Sun className="w-4 h-4 text-amber-400" />
             ) : (
-              <Moon className="w-4 h-4 text-indigo-400" />
+              <Moon className="w-4 h-4 text-indigo-500" />
             )}
           </Button>
 
@@ -211,10 +211,10 @@ export function Navbar() {
             variant="glass"
             size="sm"
             onClick={toggleMobileNav}
-            className="lg:hidden p-2 rounded-xl"
+            className="lg:hidden p-2 rounded-xl dark:text-white text-slate-800"
             title="Toggle Mobile Menu"
           >
-            {isMobileNavOpen ? <X className="w-5 h-5 text-white" /> : <Menu className="w-5 h-5 text-white" />}
+            {isMobileNavOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </Button>
         </div>
       </div>

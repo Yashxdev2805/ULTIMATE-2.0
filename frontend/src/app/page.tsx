@@ -1,229 +1,197 @@
 'use client';
 
-import React from 'react';
-import { motion } from 'framer-motion';
-import { useTheme } from '@/providers/ThemeProvider';
-import { useCartStore } from '@/store/useCartStore';
+import React, { useState } from 'react';
+import Link from 'next/link';
+import { Hero } from '@/components/home/Hero';
+import { FeatureGrid } from '@/components/home/FeatureGrid';
+import { GuideCard, GuideItem } from '@/components/features/guides/GuideCard';
+import { InteractiveStepViewer } from '@/components/features/guides/InteractiveStepViewer';
 import { GlassCard } from '@/components/ui/GlassCard';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
-import {
-  Wrench,
-  Cpu,
-  Layers,
-  Sparkles,
-  Sun,
-  Moon,
-  ShoppingCart,
-  CheckCircle2,
-  ArrowRight,
-  ShieldCheck,
-  Zap,
-  Activity,
-} from 'lucide-react';
+import { BookOpen, Sparkles, ArrowRight, CheckCircle2, ShieldCheck, Zap } from 'lucide-react';
+
+const featuredGuides: GuideItem[] = [
+  {
+    id: 'guide-iphone-15-pro-screen',
+    title: 'iPhone 15 Pro OLED Super Retina Display & Glass Replacement',
+    brand: 'Apple',
+    category: 'Smartphones',
+    difficulty: 'Intermediate',
+    duration: '45 Mins',
+    stepsCount: 5,
+    description: 'Replace a shattered OLED screen panel while retaining True Tone and Face ID ambient light sensor functionality.',
+    toolsRequired: ['Pentalobe P2', 'Tri-Point Y000', 'Suction Handle', 'ESD Spudger', 'Precision Heat Gun'],
+    partsRequired: [
+      { id: 'iphone-15-pro-display', name: 'iPhone 15 Pro Super Retina XDR Display', price: 249.99 },
+      { id: 'display-seal-adhesive', name: 'Waterproof Frame Seal Adhesive Strip', price: 9.99 },
+    ],
+    steps: [
+      {
+        title: 'Unscrew Bottom Pentalobe Fasteners',
+        desc: 'Power off your iPhone 15 Pro. Remove the two 3.8mm Pentalobe P2 screws located on either side of the USB-C charging port.',
+        torque: '0.2 Nm',
+        warning: 'Ensure device is fully powered off before inserting metallic screwdrivers to avoid shorting battery terminals.',
+      },
+      {
+        title: 'Apply Soft Heat & Apply Suction Cup',
+        desc: 'Apply a heat gun set to 80°C along the display edges for 90 seconds to soften the waterproof seal adhesive.',
+      },
+      {
+        title: 'Slice Display Frame Adhesive with Opener Pick',
+        desc: 'Attach the suction handle to the lower third of the glass panel. Insert an opening pick no deeper than 3mm to slice the adhesive perimeter.',
+        torque: 'Do not insert pick > 3mm near ambient light sensor flex cable.',
+      },
+      {
+        title: 'Disconnect Battery & Screen Flex Cables',
+        desc: 'Unscrew the 4 Tri-Point Y000 screws securing the logic board shield. Disconnect the battery press connector first, followed by the screen flex cables.',
+      },
+      {
+        title: 'Transfer Sensor Assembly & Apply New Waterproof Seal',
+        desc: 'Carefully transfer the top earpiece/ambient sensor assembly to the replacement screen. Clean frame edges with isopropyl alcohol and install new adhesive.',
+      },
+    ],
+  },
+  {
+    id: 'guide-macbook-pro-m3-battery',
+    title: 'MacBook Pro M3 16" OEM High-Capacity Battery Cell Swap',
+    brand: 'Apple',
+    category: 'Laptops',
+    difficulty: 'Master',
+    duration: '60 Mins',
+    stepsCount: 4,
+    description: 'Safely remove factory adhesive stretch release tabs and install a fresh zero-cycle 99.5Wh lithium-ion battery.',
+    toolsRequired: ['Torx T5 & T8', 'Adhesive Dissolver', 'Plastic Spudger', 'Safety Glasses'],
+    partsRequired: [
+      { id: 'macbook-pro-16-battery', name: 'MacBook Pro 16" OEM High-Density Battery', price: 129.99 },
+    ],
+    steps: [
+      {
+        title: 'Remove Lower Aluminum Case Fasteners',
+        desc: 'Unscrew the 6 Torx T5 screws securing the bottom case. Use a suction cup to pop the internal retention clips.',
+      },
+      {
+        title: 'Disconnect Battery Power Data Connector',
+        desc: 'Peel back the electrical tape covering the battery BMU connector and slide out the flex cable from its ZIF socket.',
+        warning: 'Failure to disconnect battery before unseating logic board connectors can blow backlight fuses.',
+      },
+      {
+        title: 'Release Adhesive Stretch Tabs',
+        desc: 'Slowly pull the 6 battery adhesive release tabs parallel to the chassis. Apply 2 drops of isopropyl alcohol if tab snaps.',
+      },
+      {
+        title: 'Seat New Battery & Run Calibration Cycle',
+        desc: 'Position new battery cell array, reconnect BMU flex cable, reassemble case, and perform full 100% to 0% power calibration.',
+      },
+    ],
+  },
+  {
+    id: 'guide-ps5-stick-drift-repair',
+    title: 'PS5 DualSense Controller Hall Effect Magnet Joystick Swap',
+    brand: 'Sony',
+    category: 'Consoles',
+    difficulty: 'Intermediate',
+    duration: '35 Mins',
+    stepsCount: 3,
+    description: 'Upgrade stock potentiometer joysticks to contactless Hall Effect magnetic sensor sticks for permanent zero drift.',
+    toolsRequired: ['Phillips #00', 'Plastic Pry Bar', 'Soldering Iron / Desoldering Pump'],
+    partsRequired: [
+      { id: 'hall-effect-joysticks', name: 'DualSense Hall Effect Magnetic Joysticks (Pair)', price: 14.99 },
+    ],
+    steps: [
+      {
+        title: 'Remove Decorative Trim & Shell Screws',
+        desc: 'Pop off the black front accent trim using a pry bar to expose the lower Phillips screws.',
+      },
+      {
+        title: 'Desolder Original Potentiometer Modules',
+        desc: 'Apply fresh solder to all 14 joint pins on each analog stick module, then use desoldering braid or vacuum pump to clear joints.',
+      },
+      {
+        title: 'Solder Hall Effect Sensors & Calibrate Center Deadzone',
+        desc: 'Insert Hall Effect modules, solder joint pins, and use web-based gamepad tester to calibrate magnet zero position.',
+      },
+    ],
+  },
+];
 
 export default function Home() {
-  const { theme, toggleTheme } = useTheme();
-  const { items, addItem, getTotalItems, getTotalPrice } = useCartStore();
-
-  const handleTestAddToCart = () => {
-    addItem({
-      id: 'demo-part-15-pro-display',
-      name: 'iPhone 15 Pro OLED Super Retina Display',
-      price: 249.99,
-      image: '/demo-screen.jpg',
-      compatibility: 'iPhone 15 Pro (A3102)',
-      type: 'part',
-    });
-  };
+  const [activeStepGuide, setActiveStepGuide] = useState<GuideItem | null>(null);
 
   return (
-    <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      {/* Top Banner Header */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-12 pb-6 border-b border-white/10">
-        <div className="flex items-center gap-3">
-          <div className="p-3 rounded-2xl bg-gradient-to-br from-[#FF6A00] to-[#7928CA] text-white shadow-glow-orange">
-            <Cpu className="w-7 h-7" />
-          </div>
-          <div>
-            <h1 className="text-2xl font-display font-bold text-white tracking-tight flex items-center gap-2">
-              Thinkkaro <span className="text-[#FF6A00]">RepairHub</span>
-            </h1>
-            <p className="text-xs text-slate-400 font-mono">
-              v2.0 World-Class Platform Scaffold • Next.js 14 App Router
-            </p>
-          </div>
-        </div>
+    <main className="flex-1 pb-16">
+      {/* Hero Section */}
+      <Hero />
 
-        <div className="flex items-center gap-3">
-          <Badge variant="fitment">Phase 1 Foundation Operational</Badge>
-          <Button
-            variant="glass"
-            size="sm"
-            onClick={toggleTheme}
-            leftIcon={theme === 'dark' ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-indigo-400" />}
-          >
-            {theme === 'dark' ? 'Light Mode' : 'Obsidian Mode'}
-          </Button>
-        </div>
-      </div>
+      {/* 4 Core Pillars Feature Grid */}
+      <FeatureGrid />
 
-      {/* Hero Announcement Card */}
-      <GlassCard variant="glowing" glowColor="orange" className="p-8 sm:p-10 mb-12">
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-          <div className="max-w-3xl space-y-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FF6A00]/10 border border-[#FF6A00]/30 text-[#FF6A00] text-xs font-semibold uppercase tracking-wider">
-              <Sparkles className="w-3.5 h-3.5" /> Architecture Ready
-            </div>
-            <h2 className="text-3xl sm:text-4xl font-display font-extrabold text-white tracking-tight">
-              Phase 1 Architecture & Design System <span className="text-gradient-orange">Successfully Built</span>
-            </h2>
-            <p className="text-slate-300 text-base leading-relaxed">
-              Next.js 14 App Router scaffolded with Midnight Obsidian tokens, Zustand global store, TanStack Query v5, Framer Motion spring physics, and anti-flash theme support.
-            </p>
-          </div>
-
-          <div className="flex flex-col gap-3 shrink-0">
-            <Button variant="flame" size="lg" rightIcon={<ArrowRight className="w-4 h-4" />}>
-              Explore Component Lab
-            </Button>
-          </div>
-        </div>
-      </GlassCard>
-
-      {/* Interactive Showcase Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
-        {/* Design System Tokens Swatch */}
-        <GlassCard variant="interactive" glowColor="cyan" className="p-6">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2">
-              <Layers className="w-5 h-5 text-brand-cyan" />
-              <h3 className="text-lg font-display font-bold text-white">Design Tokens</h3>
-            </div>
-            <Badge variant="oem">Midnight Obsidian</Badge>
-          </div>
-          <p className="text-xs text-slate-400 mb-6">
-            Curated color tokens, backdrop blurs (`blur-24`), glowing borders, and typography hierarchy.
-          </p>
-
-          <div className="space-y-3 font-mono text-xs">
-            <div className="p-3 rounded-xl bg-[#0B0F17] border border-white/10 flex justify-between items-center text-slate-300">
-              <span>Background Surface</span>
-              <span className="font-semibold text-brand-orange">#0B0F17</span>
-            </div>
-            <div className="p-3 rounded-xl bg-[#121826] border border-white/10 flex justify-between items-center text-slate-300">
-              <span>Elevated Glass Card</span>
-              <span className="font-semibold text-brand-cyan">rgba(18, 24, 38, 0.7)</span>
-            </div>
-            <div className="p-3 rounded-xl bg-gradient-to-r from-[#FF6A00] to-[#7928CA] p-3 text-white flex justify-between items-center font-sans font-semibold">
-              <span>Flame to Violet Accent</span>
-              <span>Gradient Token</span>
-            </div>
-          </div>
-        </GlassCard>
-
-        {/* Zustand State & Store Test */}
-        <GlassCard variant="interactive" glowColor="orange" className="p-6">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2">
-              <ShoppingCart className="w-5 h-5 text-brand-orange" />
-              <h3 className="text-lg font-display font-bold text-white">Zustand Store</h3>
-            </div>
-            <Badge variant="pulse">{getTotalItems()} Items in Cart</Badge>
-          </div>
-          <p className="text-xs text-slate-400 mb-6">
-            Test real-time store hydration, cart quantity triggers, and fitment compatibility badges.
-          </p>
-
-          <div className="space-y-4">
-            <div className="p-4 rounded-xl bg-white/5 border border-white/10 space-y-2">
-              <div className="flex justify-between text-xs font-mono text-slate-300">
-                <span>Total Items:</span>
-                <span className="text-white font-bold">{getTotalItems()}</span>
-              </div>
-              <div className="flex justify-between text-xs font-mono text-slate-300">
-                <span>Cart Subtotal:</span>
-                <span className="text-brand-orange font-bold">${getTotalPrice().toFixed(2)}</span>
-              </div>
+      {/* Featured DIY Guides Showcase */}
+      <section className="py-16 relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 mb-10">
+            <div>
+              <Badge variant="fitment" className="mb-2">Verified Step-by-Step Fixes</Badge>
+              <h2 className="text-3xl font-display font-extrabold dark:text-white text-slate-900 tracking-tight">
+                Featured <span className="text-gradient-cyan">DIY Repair Guides</span>
+              </h2>
+              <p className="dark:text-slate-400 text-slate-600 text-sm mt-1 font-medium">
+                Complete self-repair instructions with torque specs and 1-click part bundles.
+              </p>
             </div>
 
-            <Button
-              variant="flame"
-              size="md"
-              className="w-full"
-              onClick={handleTestAddToCart}
-              leftIcon={<ShoppingCart className="w-4 h-4" />}
-            >
-              Test Add Item to Cart
-            </Button>
-          </div>
-        </GlassCard>
-
-        {/* Atomic Primitives Showcase */}
-        <GlassCard variant="interactive" glowColor="violet" className="p-6">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2">
-              <Wrench className="w-5 h-5 text-brand-violet" />
-              <h3 className="text-lg font-display font-bold text-white">Atomic Components</h3>
-            </div>
-            <Badge variant="violet">UI Kit v1.0</Badge>
-          </div>
-          <p className="text-xs text-slate-400 mb-6">
-            Reusable Button, GlassCard, Badge, and GlowCanvas primitives ready for feature building.
-          </p>
-
-          <div className="space-y-3">
-            <div className="flex flex-wrap gap-2">
-              <Badge variant="fitment">✓ Guaranteed Fit</Badge>
-              <Badge variant="oem">100% OEM Part</Badge>
-              <Badge variant="pulse">Live Technician</Badge>
-              <Badge variant="warning">Low Stock Alert</Badge>
-            </div>
-            <div className="flex gap-2">
-              <Button variant="neon" size="sm" leftIcon={<Zap className="w-3.5 h-3.5" />}>
-                Neon CTA
+            <Link href="/guides">
+              <Button variant="outline" size="sm" className="dark:text-slate-200 text-slate-800 border dark:border-white/20 border-slate-300" rightIcon={<ArrowRight className="w-4 h-4" />}>
+                View All Guides
               </Button>
-              <Button variant="violet" size="sm" leftIcon={<ShieldCheck className="w-3.5 h-3.5" />}>
-                AI Diagnostics
-              </Button>
-            </div>
-          </div>
-        </GlassCard>
-      </div>
-
-      {/* Phase Roadmap Matrix Checklist */}
-      <GlassCard variant="default" className="p-8">
-        <h3 className="text-xl font-display font-bold text-white mb-6 flex items-center gap-2">
-          <Activity className="w-5 h-5 text-brand-orange" />
-          Phased Master Roadmap Status
-        </h3>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-start gap-3">
-            <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
-            <div>
-              <h4 className="text-sm font-semibold text-emerald-300">Phase 1 — Foundation</h4>
-              <p className="text-xs text-emerald-400/80">App Router, Tokens, Zustand & Query Provider wired.</p>
-            </div>
+            </Link>
           </div>
 
-          <div className="p-4 rounded-xl bg-white/5 border border-white/10 flex items-start gap-3">
-            <div className="w-5 h-5 rounded-full border-2 border-brand-orange/60 flex items-center justify-center shrink-0 text-[10px] text-brand-orange font-bold mt-0.5">2</div>
-            <div>
-              <h4 className="text-sm font-semibold text-white">Phase 2 — Navigation</h4>
-              <p className="text-xs text-slate-400">Responsive shell, drawer nav & route stubs.</p>
-            </div>
-          </div>
-
-          <div className="p-4 rounded-xl bg-white/5 border border-white/10 flex items-start gap-3">
-            <div className="w-5 h-5 rounded-full border-2 border-slate-600 flex items-center justify-center shrink-0 text-[10px] text-slate-400 font-bold mt-0.5">3</div>
-            <div>
-              <h4 className="text-sm font-semibold text-white">Phase 3 — Homepage UX</h4>
-              <p className="text-xs text-slate-400">Hero ambient glow, DIY guides & step viewer.</p>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {featuredGuides.map((guide) => (
+              <GuideCard
+                key={guide.id}
+                guide={guide}
+                onOpenStepViewer={(g) => setActiveStepGuide(g)}
+              />
+            ))}
           </div>
         </div>
-      </GlassCard>
+      </section>
+
+      {/* AI Diagnostic CTA Banner */}
+      <section className="py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <GlassCard variant="glowing" glowColor="violet" className="p-8 sm:p-12 text-center space-y-6">
+            <div className="w-14 h-14 rounded-2xl bg-purple-500/10 border border-purple-500/30 text-purple-500 dark:text-purple-400 flex items-center justify-center mx-auto">
+              <Sparkles className="w-7 h-7" />
+            </div>
+
+            <div className="max-w-2xl mx-auto space-y-3">
+              <h2 className="text-2xl sm:text-4xl font-display font-extrabold dark:text-white text-slate-900 tracking-tight">
+                Unsure What’s Wrong With <span className="text-gradient-violet">Your Device?</span>
+              </h2>
+              <p className="dark:text-slate-300 text-slate-700 text-sm leading-relaxed font-medium">
+                Upload a photo of the cracked glass or damaged board. Our AI copilot identifies the failure, calculates root cause confidence, and recommends exact replacement parts.
+              </p>
+            </div>
+
+            <div className="pt-2 flex justify-center">
+              <Link href="/ai-assistant">
+                <Button variant="violet" size="lg" rightIcon={<ArrowRight className="w-4 h-4" />}>
+                  Launch AI Diagnostic Copilot
+                </Button>
+              </Link>
+            </div>
+          </GlassCard>
+        </div>
+      </section>
+
+      {/* Interactive Step Viewer Drawer Modal */}
+      <InteractiveStepViewer
+        guide={activeStepGuide}
+        onClose={() => setActiveStepGuide(null)}
+      />
     </main>
   );
 }

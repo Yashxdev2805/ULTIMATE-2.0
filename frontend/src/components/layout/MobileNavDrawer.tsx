@@ -35,7 +35,6 @@ export function MobileNavDrawer() {
   const { isMobileNavOpen, closeMobileNav } = useUIStore();
   const { selectedDevice } = useCartStore();
 
-  // Close drawer on route change or Escape key
   useEffect(() => {
     closeMobileNav();
   }, [pathname, closeMobileNav]);
@@ -67,34 +66,34 @@ export function MobileNavDrawer() {
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', stiffness: 350, damping: 30 }}
-            className="fixed top-0 right-0 bottom-0 w-[85%] sm:w-[380px] bg-[#0B0F17] border-l border-white/10 z-50 p-6 flex flex-col justify-between overflow-y-auto lg:hidden"
+            className="fixed top-0 right-0 bottom-0 w-[85%] sm:w-[380px] dark:bg-[#0B0F17] bg-white border-l dark:border-white/10 border-slate-300 z-50 p-6 flex flex-col justify-between overflow-y-auto lg:hidden shadow-2xl"
           >
             {/* Header */}
             <div>
-              <div className="flex items-center justify-between pb-6 border-b border-white/10 mb-6">
+              <div className="flex items-center justify-between pb-6 border-b dark:border-white/10 border-slate-200 mb-6">
                 <div className="flex items-center gap-2.5">
                   <div className="p-2 rounded-xl bg-gradient-to-br from-[#FF6A00] to-[#7928CA] text-white">
                     <Cpu className="w-5 h-5" />
                   </div>
                   <div>
-                    <h2 className="font-display font-bold text-white text-base">Thinkkaro RepairHub</h2>
-                    <p className="text-[11px] text-slate-400 font-mono">Mobile Navigation</p>
+                    <h2 className="font-display font-bold dark:text-white text-slate-900 text-base">Thinkkaro RepairHub</h2>
+                    <p className="text-[11px] dark:text-slate-400 text-slate-500 font-mono">Mobile Navigation</p>
                   </div>
                 </div>
 
-                <Button variant="glass" size="sm" onClick={closeMobileNav} className="p-2 min-h-[48px] min-w-[48px]">
-                  <X className="w-5 h-5 text-slate-300" />
+                <Button variant="glass" size="sm" onClick={closeMobileNav} className="p-2 min-h-[48px] min-w-[48px] dark:text-slate-300 text-slate-800 border dark:border-white/15 border-slate-300">
+                  <X className="w-5 h-5" />
                 </Button>
               </div>
 
               {/* Active Selected Device Banner */}
               {selectedDevice?.model && (
-                <div className="p-3 mb-6 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-between text-xs text-emerald-300">
+                <div className="p-3 mb-6 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-between text-xs text-emerald-600 dark:text-emerald-300">
                   <div className="flex items-center gap-2">
-                    <Smartphone className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <Smartphone className="w-4 h-4 text-emerald-500 shrink-0" />
                     <div>
                       <span className="font-bold">✓ {selectedDevice.model}</span>
-                      <p className="text-[10px] text-emerald-400/80">{selectedDevice.brand} • {selectedDevice.variant}</p>
+                      <p className="text-[10px] text-emerald-600 dark:text-emerald-400">{selectedDevice.brand} • {selectedDevice.variant}</p>
                     </div>
                   </div>
                 </div>
@@ -111,12 +110,12 @@ export function MobileNavDrawer() {
                       href={link.href}
                       className={`min-h-[52px] px-4 py-3 rounded-xl flex items-center justify-between transition-all group ${
                         isActive
-                          ? 'bg-gradient-to-r from-brand-orange/20 to-brand-violet/20 border border-brand-orange/40 text-white font-semibold'
-                          : 'bg-white/5 border border-white/5 text-slate-300 hover:text-white hover:bg-white/10'
+                          ? 'bg-gradient-to-r from-brand-orange/20 to-brand-violet/20 border border-brand-orange/40 dark:text-white text-slate-950 font-semibold'
+                          : 'dark:bg-white/5 bg-slate-100 dark:border-white/5 border-slate-200 dark:text-slate-300 text-slate-700 hover:text-slate-950 dark:hover:text-white hover:bg-slate-200/80'
                       }`}
                     >
                       <div className="flex items-center gap-3">
-                        <Icon className={`w-5 h-5 ${isActive ? 'text-brand-orange' : 'text-slate-400'}`} />
+                        <Icon className={`w-5 h-5 ${isActive ? 'text-brand-orange' : 'dark:text-slate-400 text-slate-500'}`} />
                         <div>
                           <div className="flex items-center gap-2 text-sm font-medium">
                             <span>{link.label}</span>
@@ -126,10 +125,10 @@ export function MobileNavDrawer() {
                               </span>
                             )}
                           </div>
-                          <p className="text-[11px] text-slate-400 group-hover:text-slate-300">{link.desc}</p>
+                          <p className="text-[11px] dark:text-slate-400 text-slate-500 group-hover:text-slate-800 dark:group-hover:text-slate-300">{link.desc}</p>
                         </div>
                       </div>
-                      <ChevronRight className="w-4 h-4 text-slate-500 group-hover:text-white" />
+                      <ChevronRight className="w-4 h-4 dark:text-slate-500 text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white" />
                     </Link>
                   );
                 })}
@@ -137,7 +136,7 @@ export function MobileNavDrawer() {
             </div>
 
             {/* Footer Notice */}
-            <div className="pt-6 border-t border-white/10 text-xs text-slate-400 text-center font-mono">
+            <div className="pt-6 border-t dark:border-white/10 border-slate-200 text-xs dark:text-slate-400 text-slate-600 text-center font-mono">
               Thinkkaro RepairHub Platform v2.0
             </div>
           </motion.div>

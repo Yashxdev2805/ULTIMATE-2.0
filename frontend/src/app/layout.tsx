@@ -40,7 +40,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`dark ${outfit.variable} ${inter.variable} ${jetbrainsMono.variable}`}>
-      <body className="bg-obsidian text-slate-100 min-h-screen selection:bg-brand-orange selection:text-white font-sans antialiased relative flex flex-col">
+      <body className="min-h-screen selection:bg-brand-orange selection:text-white font-sans antialiased relative flex flex-col transition-colors duration-300">
         <AppProviders>
           <GlowCanvas />
           <Navbar />

@@ -16,19 +16,19 @@ export default function PartsPage() {
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-orange/10 border border-brand-orange/30 text-brand-orange text-xs font-semibold uppercase tracking-wider">
           <ShoppingBag className="w-3.5 h-3.5" /> Guaranteed Fitment Store
         </div>
-        <h1 className="text-3xl sm:text-5xl font-display font-extrabold text-white tracking-tight">
+        <h1 className="text-3xl sm:text-5xl font-display font-extrabold dark:text-white text-slate-900 tracking-tight">
           OEM & Refurbished <span className="text-gradient-orange">Spare Parts</span>
         </h1>
-        <p className="text-slate-300 text-base max-w-2xl leading-relaxed">
+        <p className="dark:text-slate-300 text-slate-700 text-base max-w-2xl leading-relaxed font-medium">
           Filter thousands of verified screens, batteries, charging ports, and motherboards guaranteed to fit your exact model.
         </p>
 
         {selectedDevice?.model && (
-          <div className="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center gap-3 text-sm text-emerald-300 max-w-lg">
-            <Smartphone className="w-5 h-5 text-emerald-400 shrink-0" />
+          <div className="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center gap-3 text-sm text-emerald-600 dark:text-emerald-300 max-w-lg font-medium">
+            <Smartphone className="w-5 h-5 text-emerald-500 shrink-0" />
             <div>
-              Active Filter: <strong className="text-white">{selectedDevice.model}</strong> ({selectedDevice.variant})
-              <p className="text-xs text-emerald-400/80">Displaying 100% verified compatible replacement parts.</p>
+              Active Filter: <strong className="dark:text-white text-slate-900">{selectedDevice.model}</strong> ({selectedDevice.variant})
+              <p className="text-xs text-emerald-600 dark:text-emerald-400">Displaying 100% verified compatible replacement parts.</p>
             </div>
           </div>
         )}
@@ -37,8 +37,8 @@ export default function PartsPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <GlassCard variant="interactive" glowColor="orange" className="p-6 space-y-4">
           <Badge variant="fitment">✓ Guaranteed Fit</Badge>
-          <h3 className="text-lg font-display font-bold text-white">iPhone 15 Pro Super Retina XDR Display</h3>
-          <p className="text-xs text-slate-400">Original OEM OLED panel with pre-installed adhesive and camera bracket.</p>
+          <h3 className="text-lg font-display font-bold dark:text-white text-slate-900">iPhone 15 Pro Super Retina XDR Display</h3>
+          <p className="text-xs dark:text-slate-400 text-slate-600">Original OEM OLED panel with pre-installed adhesive and camera bracket.</p>
           <div className="pt-2 flex justify-between items-center">
             <span className="text-lg font-bold text-brand-orange font-mono">$249.99</span>
             <Button
@@ -63,8 +63,8 @@ export default function PartsPage() {
 
         <GlassCard variant="interactive" glowColor="cyan" className="p-6 space-y-4">
           <Badge variant="oem">100% OEM Original</Badge>
-          <h3 className="text-lg font-display font-bold text-white">MacBook Pro 16" OEM High-Density Battery</h3>
-          <p className="text-xs text-slate-400">Fresh zero-cycle 99.5Wh lithium-ion battery with removal pull tabs.</p>
+          <h3 className="text-lg font-display font-bold dark:text-white text-slate-900">MacBook Pro 16" OEM High-Density Battery</h3>
+          <p className="text-xs dark:text-slate-400 text-slate-600">Fresh zero-cycle 99.5Wh lithium-ion battery with removal pull tabs.</p>
           <div className="pt-2 flex justify-between items-center">
             <span className="text-lg font-bold text-brand-cyan font-mono">$129.99</span>
             <Button
@@ -89,10 +89,10 @@ export default function PartsPage() {
 
         <GlassCard variant="interactive" glowColor="violet" className="p-6 space-y-4">
           <Badge variant="violet">Refurbished Grade A</Badge>
-          <h3 className="text-lg font-display font-bold text-white">Galaxy S24 Ultra USB-C Charging Port Board</h3>
-          <p className="text-xs text-slate-400">Flex cable assembly with microphone and SIM card reader tray.</p>
+          <h3 className="text-lg font-display font-bold dark:text-white text-slate-900">Galaxy S24 Ultra USB-C Charging Port Board</h3>
+          <p className="text-xs dark:text-slate-400 text-slate-600">Flex cable assembly with microphone and SIM card reader tray.</p>
           <div className="pt-2 flex justify-between items-center">
-            <span className="text-lg font-bold text-purple-400 font-mono">$39.99</span>
+            <span className="text-lg font-bold text-purple-500 dark:text-purple-400 font-mono">$39.99</span>
             <Button
               variant="violet"
               size="sm"
