@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Outfit, Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import { AppProviders } from '@/providers/AppProviders';
@@ -26,11 +26,54 @@ const jetbrainsMono = JetBrains_Mono({
   display: 'swap',
 });
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: '#0B0F17',
+};
+
 export const metadata: Metadata = {
+  metadataBase: new URL('https://thinkkaro-repairhub.com'),
   title: 'Thinkkaro (RepairHub) | World-Class Repair & Diagnostic Ecosystem',
   description:
     'Ultra-modern consumer electronics diagnostic assistant, guaranteed-fitment parts e-commerce marketplace, DIY repair guides, and doorstep technician booking.',
-  keywords: ['repair', 'electronics diagnostic', 'spare parts', 'phone repair', 'laptop repair', 'DIY repair guides'],
+  keywords: ['repair', 'electronics diagnostic', 'spare parts', 'phone repair', 'laptop repair', 'DIY repair guides', 'doorstep technician'],
+  openGraph: {
+    title: 'Thinkkaro (RepairHub) | Certified Electronics Repair Platform',
+    description: 'Instant AI fault detection, OEM spare parts, precision tool rentals, and certified doorstep repair.',
+    url: 'https://thinkkaro-repairhub.com',
+    siteName: 'Thinkkaro RepairHub',
+    images: [
+      {
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Thinkkaro RepairHub Platform',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Thinkkaro RepairHub',
+    description: 'AI-powered hardware fault detection & doorstep technician dispatch.',
+  },
+};
+
+const jsonLdSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: 'Thinkkaro RepairHub',
+  description: 'Certified Electronics Diagnostic, DIY Repair Guides & Doorstep Service',
+  url: 'https://thinkkaro-repairhub.com',
+  telephone: '+1-800-THINKKARO',
+  priceRange: '$$',
+  address: {
+    '@type': 'PostalAddress',
+    addressCountry: 'US',
+  },
 };
 
 export default function RootLayout({
@@ -40,6 +83,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`dark ${outfit.variable} ${inter.variable} ${jetbrainsMono.variable}`}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSchema) }}
+        />
+      </head>
       <body className="min-h-screen selection:bg-brand-orange selection:text-white font-sans antialiased relative flex flex-col transition-colors duration-300">
         <AppProviders>
           <GlowCanvas />

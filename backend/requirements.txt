@@ -1,5 +1,18 @@
+# FastAPI Framework & ASGI Server
 fastapi>=0.109.0
-uvicorn>=0.27.0
-pydantic>=2.6.0
-python-dotenv>=1.0.0
+uvicorn[standard]>=0.27.0
 gunicorn>=21.2.0
+
+# Data Validation & Settings
+pydantic>=2.6.0
+pydantic-settings>=2.1.0
+python-dotenv>=1.0.0
+
+# Database ORM & Connection Pooling
+sqlalchemy>=2.0.25
+psycopg2-binary>=2.9.9
+alembic>=1.13.1
+
+# Utilities & HTTP Client
+httpx>=0.26.0
+python-multipart>=0.0.9
