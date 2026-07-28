@@ -13,6 +13,8 @@ PRD/
 # ------------------------------------------
 # Excluded Python & Backend Requirements
 # ------------------------------------------
+requirements.txt
+*/requirements.txt
 venv/
 .venv/
 env/
