@@ -18,13 +18,18 @@ requirements.txt
 venv/
 .venv/
 env/
+backend/venv/
+backend/env/
 __pycache__/
+*/__pycache__/
 *.pyc
 *.pyo
 *.pyd
 *.db
 *.sqlite
 *.sqlite3
+thinkkaro.db
+backend/thinkkaro.db
 
 # ------------------------------------------
 # Environment Files & Credentials
